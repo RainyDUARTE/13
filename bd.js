@@ -41,7 +41,15 @@ async function deleteUsuario(id) {
   client.release();
 }
 
+//bd.js
+async function updateUsuario(id, data) {
+  const client = await connect();
+  const query = "UPDATE usuario SET nome = $1, email = $2, senha = $3 WHERE id = $4";
+  const usuario = [data.nome, data.email, data.senha, id];
+  await client.query(query, usuario);
+  client.release();
+}
+
 
 //bd.js
-//bd.js
-export { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario };
+export { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario, updateUsuario };
